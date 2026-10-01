@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Cart | Kanwood Interiors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=s1">
+</head>
+<body data-page="cart" data-root="">
+  <div id="siteHead"></div>
+  <div class="pagehead">
+    <div class="wrap">
+      <div class="crumb"><a href="index.html">Home</a> / Cart</div>
+      <h1>Your Cart</h1>
+    </div>
+  </div>
+  <section class="sec">
+    <div class="wrap">
+      <div class="empty" id="cartEmpty" style="display:none;">
+        <h2>Your cart is empty</h2>
+        <p style="color:var(--mute);margin:10px 0 18px;">Add furniture to checkout. Login required to place an order.</p>
+        <a class="btn btn-red" href="product.html">Continue shopping</a>
+      </div>
+      <div class="cart-layout" id="cartLayout">
+        <div class="cart-box">
+          <h3 style="margin-bottom:8px;">Items</h3>
+          <div id="cartItems"></div>
+        </div>
+        <aside class="summary">
+          <h3>Order summary</h3>
+          <div class="sum-row"><span>Subtotal</span><b id="subTotal">₹0</b></div>
+          <div class="sum-row"><span>Delivery</span><b id="shipFee">₹0</b></div>
+          <div class="sum-row" style="border-top:1px solid var(--line);padding-top:10px;font-size:16px;"><span>Total</span><b id="grandTotal">₹0</b></div>
+          <a class="btn btn-red" id="goCheckout" href="checkout.html" style="width:100%;margin-top:14px;">Proceed to checkout</a>
+          <p class="note" id="cartNote"></p>
+          <p style="font-size:12px;color:var(--mute);margin-top:10px;">Free delivery on orders ₹25,000+. Stock reserved at checkout.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+  <div id="siteFoot"></div>
+  <script src="js/main.js?v=s1"></script>
+</body>
+</html>

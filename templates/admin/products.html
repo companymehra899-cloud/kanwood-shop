@@ -1,0 +1,34 @@
+{% extends "admin/base.html" %}
+{% set nav = "products" %}
+{% block title %}Products{% endblock %}
+{% block heading %}Products{% endblock %}
+{% block content %}
+<p style="margin-bottom:14px;"><a class="btn btn-red" href="/admin/products/new">Add product</a></p>
+<div class="admin-card">
+  {% if not products %}
+    <p class="dim">No products. Add the first catalogue item.</p>
+  {% else %}
+    <table class="admin-table">
+      <thead><tr><th></th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Size</th><th></th></tr></thead>
+      <tbody>
+        {% for p in products %}
+        <tr>
+          <td>{% if p.image %}<img class="thumb" src="{{ p.image }}" alt="">{% endif %}</td>
+          <td><b>{{ p.name }}</b><br><span class="dim">{{ p.slug }}</span></td>
+          <td>{{ p.category_name }}</td>
+          <td>₹{{ "{:,}".format(p.price) }}</td>
+          <td><span class="tag {% if p.stock < 5 %}new{% else %}closed{% endif %}">{{ p.stock }}</span></td>
+          <td>{{ p.dim }}</td>
+          <td>
+            <a class="btn btn-line" href="/admin/products/{{ p.id }}/edit">Edit</a>
+            <form method="post" action="/admin/products/{{ p.id }}/delete" style="display:inline;" onsubmit="return confirm('Delete this product?');">
+              <button class="btn btn-dark" type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+</div>
+{% endblock %}

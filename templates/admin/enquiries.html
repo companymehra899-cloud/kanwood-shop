@@ -1,0 +1,47 @@
+{% extends "admin/base.html" %}
+{% set nav = "enq" %}
+{% block title %}Enquiries{% endblock %}
+{% block heading %}Enquiries{% endblock %}
+{% block content %}
+<div class="subnav" style="margin-bottom:14px;">
+  <a class="{% if not status %}on{% endif %}" href="/admin/enquiries">All</a>
+  <a class="{% if status=='new' %}on{% endif %}" href="/admin/enquiries?status=new">New</a>
+  <a class="{% if status=='contacted' %}on{% endif %}" href="/admin/enquiries?status=contacted">Contacted</a>
+  <a class="{% if status=='closed' %}on{% endif %}" href="/admin/enquiries?status=closed">Closed</a>
+</div>
+<div class="admin-card">
+  {% if not enquiries %}
+    <p class="dim">No enquiries{% if status %} with this status{% endif %}.</p>
+  {% else %}
+    {% for e in enquiries %}
+      <article class="enq">
+        <div class="enq-h">
+          <div>
+            <b>{{ e.name }}</b>
+            <span class="tag {{ e.status }}">{{ e.status }}</span>
+            <p class="dim">{{ e.created_at[:16].replace('T',' ') }} · {{ e.source }}</p>
+          </div>
+          <form method="post" action="/admin/enquiries/{{ e.id }}/status">
+            <select name="status">
+              <option value="new" {% if e.status=='new' %}selected{% endif %}>new</option>
+              <option value="contacted" {% if e.status=='contacted' %}selected{% endif %}>contacted</option>
+              <option value="closed" {% if e.status=='closed' %}selected{% endif %}>closed</option>
+            </select>
+            <button class="btn btn-line" type="submit">Update</button>
+          </form>
+        </div>
+        <p><a href="mailto:{{ e.email }}">{{ e.email }}</a> · <a href="tel:{{ e.phone }}">{{ e.phone }}</a></p>
+        {% if e.product_name %}<p>Product: <b>{{ e.product_name }}</b>{% if e.qty %} × {{ e.qty }}{% endif %}</p>{% endif %}
+        {% if e.items_list %}
+          <ul class="enq-items">
+            {% for it in e.items_list %}
+              <li>{{ it.name or it.slug }} × {{ it.qty or 1 }}{% if it.price %} · ₹{{ "{:,}".format(it.price) }}{% endif %}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% if e.message %}<p class="enq-msg">{{ e.message }}</p>{% endif %}
+      </article>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}

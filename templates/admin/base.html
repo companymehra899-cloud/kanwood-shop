@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Admin{% endblock %} | Kanwood Interiors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-body">
+  <aside class="admin-side">
+    <a class="admin-brand" href="/admin/">
+      <div class="logo-mark">K</div>
+      <div><strong>Kanwood</strong><span>Admin</span></div>
+    </a>
+    <nav>
+      <a href="/admin/" class="{% if request.path == '/admin/' or request.path == '/admin' %}on{% endif %}">Dashboard</a>
+      <a href="/admin/products" class="{% if request.path == '/admin/products' %}on{% endif %}">Products</a>
+      <a href="/admin/products/new" class="{% if '/new' in request.path %}on{% endif %}">Add product</a>
+      <a href="/admin/orders" class="{% if 'orders' in request.path %}on{% endif %}">Orders</a>
+      <a href="/admin/categories" class="{% if 'categories' in request.path %}on{% endif %}">Categories</a>
+      <a href="/admin/enquiries" class="{% if 'enquiries' in request.path %}on{% endif %}">Enquiries</a>
+      <a href="/" target="_blank" rel="noopener">View catalogue</a>
+      <a href="/admin/logout">Logout</a>
+    </nav>
+  </aside>
+  <div class="admin-main">
+    <header class="admin-top">
+      <h1>{% block heading %}Admin{% endblock %}</h1>
+      <span class="admin-who">{{ session.admin }}</span>
+    </header>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for cat, msg in messages %}
+          <p class="admin-flash {{ cat }}">{{ msg }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

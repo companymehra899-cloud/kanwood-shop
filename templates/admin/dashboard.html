@@ -1,0 +1,34 @@
+{% extends "admin/base.html" %}
+{% set nav = "dash" %}
+{% block title %}Dashboard{% endblock %}
+{% block heading %}Dashboard{% endblock %}
+{% block content %}
+<div class="admin-stats">
+  <a class="stat" href="/admin/products"><b>{{ stats.products }}</b><span>Products</span></a>
+  <a class="stat" href="/admin/orders"><b>{{ stats.orders }}</b><span>Orders</span></a>
+  <a class="stat" href="/admin/products"><b>{{ stats.customers }}</b><span>Customers</span></a>
+  <a class="stat" href="/admin/products"><b>{{ stats.low }}</b><span>Low stock</span></a>
+</div>
+<div class="admin-card">
+  <h3>Recent orders</h3>
+  {% if not recent %}
+    <p class="dim">No orders yet.</p>
+  {% else %}
+    <table class="admin-table">
+      <thead><tr><th>Code</th><th>When</th><th>Customer</th><th>Total</th><th>Pay</th><th>Status</th></tr></thead>
+      <tbody>
+        {% for e in recent %}
+        <tr>
+          <td>{{ e.code }}</td>
+          <td>{{ e.created_at[:16].replace('T',' ') }}</td>
+          <td>{{ e.name }}</td>
+          <td>₹{{ "{:,}".format(e.total) }}</td>
+          <td><span class="tag {{ e.payment_status }}">{{ e.payment_status }}</span></td>
+          <td><span class="tag {{ e.status }}">{{ e.status }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+</div>
+{% endblock %}

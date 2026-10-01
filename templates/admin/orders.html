@@ -1,0 +1,49 @@
+{% extends "admin/base.html" %}
+{% set nav = "orders" %}
+{% block title %}Orders{% endblock %}
+{% block heading %}Orders{% endblock %}
+{% block content %}
+<div class="subnav" style="margin-bottom:14px;">
+  <a class="{% if not status %}on{% endif %}" href="/admin/orders">All</a>
+  <a class="{% if status=='placed' %}on{% endif %}" href="/admin/orders?status=placed">Placed</a>
+  <a class="{% if status=='paid' %}on{% endif %}" href="/admin/orders?status=paid">Paid</a>
+  <a class="{% if status=='shipped' %}on{% endif %}" href="/admin/orders?status=shipped">Shipped</a>
+  <a class="{% if status=='delivered' %}on{% endif %}" href="/admin/orders?status=delivered">Delivered</a>
+</div>
+<div class="admin-card">
+  {% if not orders %}
+    <p class="dim">No orders{% if status %} with this status{% endif %}.</p>
+  {% else %}
+    {% for e in orders %}
+      <article class="enq">
+        <div class="enq-h">
+          <div>
+            <b>{{ e.code }}</b>
+            <span class="tag {{ e.status }}">{{ e.status }}</span>
+            <span class="tag {{ e.payment_status }}">{{ e.payment_status }}</span>
+            <p class="dim">{{ e.created_at[:16].replace('T',' ') }} · {{ e.payment_method }}</p>
+          </div>
+          <form method="post" action="/admin/orders/{{ e.id }}/status">
+            <select name="status">
+              {% for s in ['placed','awaiting_payment','paid','packed','shipped','delivered','cancelled'] %}
+              <option value="{{ s }}" {% if e.status==s %}selected{% endif %}>{{ s }}</option>
+              {% endfor %}
+            </select>
+            <button class="btn btn-line" type="submit">Update</button>
+          </form>
+        </div>
+        <p>{{ e.name }} · <a href="mailto:{{ e.email }}">{{ e.email }}</a> · <a href="tel:{{ e.phone }}">{{ e.phone }}</a></p>
+        <p class="dim">{{ e.address }}{% if e.city %}, {{ e.city }}{% endif %} {{ e.pincode }}</p>
+        <p><b>₹{{ "{:,}".format(e.total) }}</b> (sub ₹{{ "{:,}".format(e.subtotal) }} + ship ₹{{ "{:,}".format(e.shipping) }})</p>
+        {% if e.items_list %}
+          <ul class="enq-items">
+            {% for it in e.items_list %}
+              <li>{{ it.name or it.slug }} × {{ it.qty or 1 }}{% if it.price %} · ₹{{ "{:,}".format(it.price) }}{% endif %}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </article>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}

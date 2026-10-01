@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Login | Kanwood Interiors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css?v=s1">
+</head>
+<body data-page="login" data-root="../">
+  <div id="siteHead"></div>
+  <div class="pagehead">
+    <div class="wrap">
+      <div class="crumb"><a href="../index.html">Home</a> / Login</div>
+      <h1>Account</h1>
+    </div>
+  </div>
+  <section class="sec">
+    <div class="wrap">
+      <div class="auth-box">
+        <div class="toggle">
+          <button type="button" class="on" data-tab="login">Login</button>
+          <button type="button" data-tab="reg">Register</button>
+        </div>
+        <form id="loginForm">
+          <div class="field"><label>Email</label><input id="loginEmail" type="email" required placeholder="you@email.com"></div>
+          <div class="field"><label>Password</label><input id="loginPass" type="password" required minlength="4" placeholder="Password"></div>
+          <button class="btn btn-red" type="submit" style="width:100%;">Login</button>
+        </form>
+        <form id="regForm" style="display:none;">
+          <div class="field"><label>Full name</label><input id="regName" required placeholder="Your name"></div>
+          <div class="field"><label>Email</label><input id="regEmail" type="email" required placeholder="you@email.com"></div>
+          <div class="field"><label>Phone</label><input id="regPhone" type="tel" required placeholder="+91"></div>
+          <div class="field"><label>Password</label><input id="regPass" type="password" required minlength="4" placeholder="Password"></div>
+          <button class="btn btn-red" type="submit" style="width:100%;">Create account</button>
+        </form>
+        <p class="note" id="authNote"></p>
+      </div>
+    </div>
+  </section>
+  <div id="siteFoot"></div>
+  <script src="../js/main.js?v=s1"></script>
+</body>
+</html>

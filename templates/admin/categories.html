@@ -1,0 +1,17 @@
+{% extends "admin/base.html" %}
+{% set nav = "cats" %}
+{% block title %}Categories{% endblock %}
+{% block heading %}Categories{% endblock %}
+{% block content %}
+<p class="dim" style="margin-bottom:14px;">Fixed catalogue groups. Add products under a category from Products.</p>
+<div class="admin-cat-grid">
+  {% for c in categories %}
+    <article class="admin-card">
+      <img src="{{ c.image }}" alt="{{ c.name }}" class="cat-img">
+      <h3>{{ c.name }}</h3>
+      <p class="dim">{{ c.slug }} · {{ c.count }} product{{ '' if c.count==1 else 's' }}</p>
+      <a class="btn btn-line" href="/admin/products/new">Add product</a>
+    </article>
+  {% endfor %}
+</div>
+{% endblock %}

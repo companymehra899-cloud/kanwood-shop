@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Checkout | Kanwood Interiors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=s1">
+</head>
+<body data-page="cart" data-root="">
+  <div id="siteHead"></div>
+  <div class="pagehead">
+    <div class="wrap">
+      <div class="crumb"><a href="index.html">Home</a> / <a href="cart.html">Cart</a> / Checkout</div>
+      <h1>Checkout</h1>
+    </div>
+  </div>
+  <section class="sec">
+    <div class="wrap">
+      <div class="cart-layout" id="checkLayout">
+        <div class="cart-box">
+          <h3 style="margin-bottom:12px;">Shipping</h3>
+          <form id="checkForm">
+            <div class="field"><label>Name</label><input id="ckName" required placeholder="Your name"></div>
+            <div class="field"><label>Email</label><input id="ckEmail" type="email" required placeholder="you@email.com"></div>
+            <div class="field"><label>Phone</label><input id="ckPhone" type="tel" required placeholder="+91 98111 67816"></div>
+            <div class="field"><label>Address</label><textarea id="ckAddress" required placeholder="House, street, landmark"></textarea></div>
+            <div class="two-col">
+              <div class="field"><label>City</label><input id="ckCity" required placeholder="City"></div>
+              <div class="field"><label>Pincode</label><input id="ckPin" required maxlength="6" placeholder="110001"></div>
+            </div>
+            <h3 style="margin:16px 0 10px;">Payment</h3>
+            <div class="pay-opts">
+              <label><input type="radio" name="pay" value="cod" checked> Cash on delivery</label>
+              <label><input type="radio" name="pay" value="upi"> UPI (demo)</label>
+              <label><input type="radio" name="pay" value="card"> Card (demo)</label>
+            </div>
+            <div id="upiBox" class="field" style="display:none;margin-top:10px;"><label>UPI ID</label><input id="ckUpi" placeholder="name@upi"></div>
+            <div id="cardBox" style="display:none;margin-top:10px;">
+              <div class="field"><label>Card number</label><input id="ckCard" placeholder="4111 1111 1111 1111"></div>
+              <div class="two-col">
+                <div class="field"><label>Expiry</label><input id="ckExp" placeholder="12/28"></div>
+                <div class="field"><label>CVV</label><input id="ckCvv" placeholder="123" maxlength="4"></div>
+              </div>
+            </div>
+            <button class="btn btn-red" type="submit" style="width:100%;margin-top:12px;">Place order</button>
+            <p class="note" id="ckNote"></p>
+            <p class="dim" style="margin-top:10px;font-size:12px;">Demo gateway — no real charge. Card ending 0000 is declined.</p>
+          </form>
+        </div>
+        <aside class="summary">
+          <h3>Order summary</h3>
+          <div id="ckItems"></div>
+          <div class="sum-row"><span>Subtotal</span><b id="ckSub">₹0</b></div>
+          <div class="sum-row"><span>Delivery</span><b id="ckShip">₹0</b></div>
+          <div class="sum-row" style="border-top:1px solid var(--line);padding-top:10px;font-size:16px;"><span>Total</span><b id="ckTotal">₹0</b></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+  <div id="siteFoot"></div>
+  <script src="js/main.js?v=s1"></script>
+</body>
+</html>

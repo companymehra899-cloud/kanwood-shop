@@ -1,0 +1,39 @@
+{% extends "admin/base.html" %}
+{% set nav = "new" if not product else "products" %}
+{% block title %}{{ title }}{% endblock %}
+{% block heading %}{{ title }}{% endblock %}
+{% block content %}
+<form class="admin-card admin-form" method="post" enctype="multipart/form-data">
+  <div class="field"><label>Name</label><input name="name" required value="{{ product.name if product else '' }}"></div>
+  <div class="field"><label>Slug (optional)</label><input name="slug" value="{{ product.slug if product else '' }}" placeholder="heritage-lounge-sofa"></div>
+  <div class="two">
+    <div class="field">
+      <label>Category</label>
+      <select name="category" required>
+        {% for c in categories %}
+          <option value="{{ c.slug }}" {% if product and product.category==c.slug %}selected{% endif %}>{{ c.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="field"><label>Price (INR MRP)</label><input name="price" type="number" min="0" step="1" value="{{ product.price if product else 0 }}"></div>
+  </div>
+  <div class="field"><label>Stock</label><input name="stock" type="number" min="0" step="1" value="{{ product.stock if product else 10 }}"></div>
+  <div class="field"><label>Dimensions</label><input name="dim" value="{{ product.dim if product else '' }}" placeholder="2100x900x850 mm"></div>
+  <div class="field"><label>Colours (coka red gold yellow)</label><input name="colors" value="{{ product.colors_text if product else 'coka' }}"></div>
+  <div class="field"><label>Description</label><textarea name="description">{{ product.description if product else '' }}</textarea></div>
+  <div class="field"><label>Highlights / specs (one per line)</label><textarea name="specs">{{ product.specs_text if product else '' }}</textarea></div>
+  <div class="field"><label>Main photo URL</label><input name="image" value="{{ product.image if product else '' }}" placeholder="https://... or leave blank if uploading"></div>
+  <div class="field"><label>Or upload main photo</label><input type="file" name="photo" accept="image/*"></div>
+  <div class="field"><label>Extra photo URLs (one per line)</label><textarea name="thumbs">{{ product.thumbs_text if product else '' }}</textarea></div>
+  <div class="field"><label>Or upload extra photos</label><input type="file" name="photos" accept="image/*" multiple></div>
+  {% if product and product.thumbs %}
+    <div class="admin-thumbs">
+      {% for t in product.thumbs %}<img src="{{ t }}" alt="">{% endfor %}
+    </div>
+  {% endif %}
+  <div class="actions">
+    <button class="btn btn-red" type="submit">Save</button>
+    <a class="btn btn-line" href="/admin/products">Cancel</a>
+  </div>
+</form>
+{% endblock %}

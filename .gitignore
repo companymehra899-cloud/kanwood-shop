@@ -1,0 +1,7 @@
+data/*.db
+data/*.db-journal
+uploads/*
+!uploads/.gitkeep
+__pycache__/
+*.pyc
+.venv/
